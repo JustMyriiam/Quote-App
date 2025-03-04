@@ -1,0 +1,116 @@
+:root {
+    --violet: #d4b9ea;
+    --violet-dark: #b19cd9;
+    --violet-text: #4b2c7f;
+    --violet-border: #f3e8fb;
+    --violet-border: #f8f3fd;
+    --violet-highlight: #6a2c8d;
+    --violet-light: #e0d7f3;
+
+
+}
+
+footer{
+    border-top: 1em bold #000000;
+    background-color: #E5E4E2;
+}
+
+body {
+    background-color: var(--violet-border); /* Light violet background */
+    color: var(--violet-text); /* Darker violet text */
+}
+
+.navbar {
+    background-color: #ffffff;
+}
+
+.navbar-brand {
+    color: var(--violet-text) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--violet-text) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--violet-highlight) !important;
+}
+
+.btn-outline-primary {
+    border-color: var(--violet);
+    color: var(--violet);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--violet);
+    color: white;
+}
+
+/* Search Button */
+.btn-search {
+    background-color: var(--violet); /* Pastel violet */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+.btn-search:hover {
+    background-color: var(--violet-dark); /* Slightly darker pastel violet */
+    color: white;
+}
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid var(--violet-border); /* Light lavender card border */
+}
+
+.card-body {
+    color: var(--violet-text);
+}
+
+.form-control {
+    border-color: var(--violet-border);
+}
+
+.form-control:focus {
+    border-color: var(--violet-dark);
+}
+
+.input-group-text {
+    background-color: var(--violet-dark);
+    color: white;
+}
+
+.pagination a {
+    color: var(--violet-text);
+}
+
+.pagination a:hover {
+    color: var(--violet-dark);
+}
+
+h3 {
+    color: var(--violet-highlight); /* Less dark violet */
+    font-family: "Dancing Script", serif;
+    font-weight: 500; /* Emphasize the text */
+    font-size: 2.8rem; /* Slightly larger for emphasis */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+
+.card-text {
+    font-style: italic;
+    color: #333;
+    display: flex; /* Makes the content align in a row */
+    align-items: center; /* Vertically aligns the icons and text */
+    gap: 0.5rem; /* Adds spacing between the icons and the text */
+}
+
+.card-text i {
+    color: var(--violet-quote);
+    font-size: 1.2rem; /* Adjust size of the quote icons */
+}
+

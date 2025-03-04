@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes - Quote App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet"> <!-- Link to the external CSS file -->
+
+    <style>
+        :root {
+            --violet-dark: #6a2c8d; /* Dark violet border */
+            --violet-light: #f8f3fd; /* Light violet background */
+            --gray-light: #e9e9e9; /* Light gray for input field hints */
+            --violet-quote: #6a2c8d; /* Violet color for quotation marks */
+        }
+
+        /* Quote Card Styling */
+        .card {
+            border: 2px solid var(--violet-dark); /* Dark violet border */
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            max-width: 500px; /* Narrowing the cards */
+            margin: 0 auto 20px; /* Centering the cards */
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift effect on hover */
+        }
+
+        .card-text {
+            font-style: italic;
+            color: #333;
+            position: relative;
+            padding: 0 1.5rem; /* Adding space for quotes */
+        }
+
+        .card-text::before,
+        .card-text::after {
+            content: '\201C'; /* Guillemets (quotation marks) */
+            color: var(--violet-quote);
+            font-size: 2rem;
+            position: absolute;
+        }
+
+        .card-text::before {
+            left: 0;
+            top: 0;
+        }
+
+        .card-text::after {
+            content: '\201D'; /* Closing quotation mark */
+            right: 0;
+            bottom: 0;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: var(--violet-dark);
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar with Light Violet Background -->
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Quote App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-user"></i> Hello, Person</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-primary" href="/requestQuote.html" role="button"><i class="fa fa-pencil"></i> Request a Quote</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-secondary" href="/login.html" role="button"><i class="fa fa-sign-in"></i> Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Your next favorite quote is just a click away.</h3>
+
+    <!-- Search Form - Centered -->
+    <div class="d-flex justify-content-center mb-4">
+        <form action="/quotes/search" method="get" class="form-inline" onsubmit="return handleSearch(event)">
+            <!-- Text Field -->
+            <div class="form-group mr-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-quote-left"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="text" name="text" placeholder="Quote Text">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Cards for Quotes -->
+    <div class="row mt-4">
+        <div class="col-12 mb-4" th:each="quote : ${quotes.content}">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fa fa-minus"></i><h5 class="card-text" th:text="${quote.text}"></h5> <i class="fa fa-minus"></i>
+                    <p class="card-title">
+                        <span th:text="${quote.author}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination (Numbered Buttons) -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-4">
+            <li class="page-item" th:if="${quotes.hasPrevious()}">
+                <a class="page-link" href="#" th:href="@{/quotes?page=${quotes.number - 1}&size=${quotes.size}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <!-- Loop for page numbers -->
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, quotes.totalPages)}">
+                <a class="page-link" href="#" th:href="@{/quotes?page=${i - 1}&size=${quotes.size}}" th:text="${i}"></a>
+            </li>
+            <li class="page-item" th:if="${quotes.hasNext()}">
+                <a class="page-link" href="#" th:href="@{/quotes?page=${quotes.number + 1}&size=${quotes.size}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Pagination info -->
+    <div class="d-flex justify-content-between mt-4">
+        <div>
+            <span th:text="'Page ' + ${quotes.number + 1} + ' of ' + ${quotes.totalPages}"></span>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center text-muted py-3 mt-5">
+    <div class="container">
+        <p class="mb-0">© Mariem Sghaier 2024</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script>
+    // Submit the search form when Enter is pressed
+    function handleSearch(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default Enter key behavior
+            document.querySelector("form").submit(); // Submit the form
+        }
+    }
+</script>
+</body>
+</html>

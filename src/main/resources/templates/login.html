@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        :root {
+            --violet-light: #f8f3fd; /* Light pastel violet */
+            --violet-button: #b19cd9; /* Slightly darker violet for the button */
+            --gray-light: #e9e9e9; /* Light gray for input field hints */
+            --white-bg: #ffffff; /* White background */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--white-bg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: var(--violet-light);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--violet-button);
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        input::placeholder {
+            color: var(--gray-light);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--violet-button);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #a087c2; /* Darker shade for hover effect */
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <form>
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<footer>
+    <p>© Mariem Sghaier 2024</p>
+</footer>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 30px;
+            background-color: white;
+            border: 3px solid #6a2c8d;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            color: #6a2c8d; /* Dark violet for label */
+        }
+        .form-control {
+            border-color: #6a2c8d;
+        }
+        .btn {
+            background-color: #6a2c8d;
+            color: white;
+        }
+        .btn:hover {
+            background-color: #4f1e6f;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3 class="text-center mb-4" style="color: #6a2c8d;">Request a Quote</h3>
+    <form id="requestQuoteForm" novalidate>
+        <div class="mb-3">
+            <label for="quoteText" class="form-label">Quote Text*</label>
+            <textarea class="form-control" id="quoteText" rows="3" required></textarea>
+            <div class="error-message hidden" id="quoteError">Quote cannot be empty</div>
+        </div>
+        <div class="mb-3">
+            <label for="authorName" class="form-label">Author Name*</label>
+            <input type="text" class="form-control" id="authorName" required>
+            <div class="error-message hidden" id="authorError">Author name cannot be anonymous or empty</div>
+        </div>
+        <button type="submit" class="btn w-100">Confirm</button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('requestQuoteForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Reset error messages
+        document.querySelectorAll('.error-message').forEach(msg => msg.classList.add('hidden'));
+
+        // Get form values
+        const quoteText = document.getElementById('quoteText').value.trim();
+        const authorName = document.getElementById('authorName').value.trim().toLowerCase();
+
+        // Validation flags
+        let isValid = true;
+
+        // Quote validation
+        if (!quoteText) {
+            document.getElementById('quoteError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        // Author validation
+        if (!authorName || authorName === 'anonymous' || authorName === 'anon') {
+            document.getElementById('authorError').classList.remove('hidden');
+            isValid = false;
+        }
+
+        // If valid, process the form
+        if (isValid) {
+            // Here you would typically send the data to your backend
+            console.log('Form submitted:', { quoteText, authorName });
+
+            // Reset form
+            this.reset();
+
+            // Show success message
+            alert('Quote request confirmed!');
+        }
+    });
+</script>
+
+</body>
+</html>
